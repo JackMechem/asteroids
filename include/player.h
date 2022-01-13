@@ -3,50 +3,42 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-class Player {
+class Player
+{
 
 public:
+    Player(std::string texturePath)
+    {
 
-    Player(){
-        //default
-    };
+        playerObject = sf::RectangleShape(sf::Vector2f(playerx, playery));
 
-    Player(std::string imgDirectory){
-        if(!playerTexture.loadFromFile(imgDirectory)){
-            std::cerr << "Error\n";
-        }
-        playerSprite.setTexture(playerTexture);
+        playerTexture.loadFromFile(texturePath);
+        playerObject.setTexture(&playerTexture);
+
     }
 
-    void drawPlayer(sf::RenderWindow &window){
-        window.draw(playerSprite);
-    }
+    void Update(float dt);
 
-    void movePlayer(char direction, float moveSpeed, float dt){
-        if(direction == 'u'){
-            playerSprite.move(0, -moveSpeed * dt);
-        } if(direction == 'd'){
-            playerSprite.move(0, moveSpeed * dt);
-        } if(direction == 'l'){
-            playerSprite.move(moveSpeed * dt, 0.0f);
-        } if(direction == 'r'){
-            playerSprite.move(-moveSpeed * dt, 0);
-        }
+    sf::RectangleShape GetPlayerObject();
 
-
-
+    ~Player()
+    {
     }
 
 private:
+    sf::RectangleShape playerObject;
 
     sf::Texture playerTexture;
-    sf::Sprite playerSprite;
 
+    float dt;
 
     float playerx = 60.0f;
     float playery = 100.0f;
     float playerSpeed = 200.0f;
 
+    float playerAcc = 0.02f;
+    float playerVelx = 0.0f;
+    float playerVely = 0.0f;
+    float maxVel = 150.0f;
     void Input();
-
 };

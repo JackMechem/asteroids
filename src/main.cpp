@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "../include/player.h"
+
 int main()
 {
 
@@ -9,28 +11,30 @@ int main()
 
     int windowx = 512;
     int windowy = 512;
+    
+    Player player("images/player.png");
 
-    float playerx = 60.0f;
-    float playery = 100.0f;
-    float playerSpeed = 200.0f;
+    // float playerx = 60.0f;
+    // float playery = 100.0f;
+    // float playerSpeed = 200.0f;
 
-    float playerAcc = 50.0f;
-    float playerVel = 0.0f;
-    float maxVel = 200.0f;
+    // float playerAcc = 0.02f;
+    // float playerVelx = 0.0f;
+    // float playerVely = 0.0f;
+    // float maxVel = 150.0f;
 
     sf::RenderWindow window(sf::VideoMode(windowx, windowy), "Asteroids", sf::Style::Close | sf::Style::Resize);
-    sf::RectangleShape player(sf::Vector2f(playerx, playery));
+    // sf::RectangleShape player(sf::Vector2f(playerx, playery));
 
-    sf::Texture playerTexture;
-    playerTexture.loadFromFile("images/player.png");
-    player.setTexture(&playerTexture);
+    // sf::Texture playerTexture;
+    // playerTexture.loadFromFile("images/player.png");
+    // player.setTexture(&playerTexture);
 
     while (window.isOpen())
     {
         sf::Event evnt;
 
-        time = clock.restart();
-        float dt = time.asSeconds();
+        float dt = clock.restart().asSeconds();
 
         while (window.pollEvent(evnt))
         {
@@ -47,35 +51,68 @@ int main()
             }
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-        {
-            if (playerVel < maxVel)
-                playerVel += playerAcc * dt;
-            player.move(-playerVel * dt, 0.0f);
-        }
-        else
-        {
-            if (playerVel > 0)
-            {
-                playerVel -= playerAcc * dt;
-                player.move(-playerVel * dt, 0.0f);
-            }
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-        {
-            player.move(0.0f, -playerSpeed * dt);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-        {
-            player.move(playerSpeed * dt, 0.0f);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-        {
-            player.move(0.0f, playerSpeed * dt);
-        }
+        player.Update(dt);
+
+        // bool inputLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
+        // bool inputRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D);
+        // bool inputUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
+        // bool inputDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);
+
+
+        // if (inputRight)
+        // {
+        //     if (playerVelx < maxVel)
+        //         playerVelx += playerAcc;
+        // }
+        // if (inputLeft)
+        // {
+        //     if (playerVelx > -maxVel)
+        //         playerVelx -= playerAcc;
+        // }
+        // if (inputDown)
+        // {
+        //     if (playerVely < maxVel)
+        //         playerVely += playerAcc;
+        // }
+        // if (inputUp)
+        // {
+        //     if (playerVely > -maxVel)
+        //         playerVely -= playerAcc;
+        // }
+
+        // if (inputRight == false && inputLeft == false)
+        // {
+        //     if (playerVelx != 0)
+        //     {
+        //         if (playerVelx < 0)
+        //         {
+        //             playerVelx += playerAcc;
+        //         }
+        //         if (playerVelx > 0)
+        //         {
+        //             playerVelx -= playerAcc;
+        //         }
+        //     }
+        // }
+        // if (inputDown == false && inputUp == false)
+        // {
+        //     if (playerVely != 0)
+        //     {
+        //         if (playerVely < 0)
+        //         {
+        //             playerVely += playerAcc;
+        //         }
+        //         if (playerVely > 0)
+        //         {
+        //             playerVely -= playerAcc;
+        //         }
+        //     }
+        // }
+
+        // player.move(playerVelx * dt, playerVely * dt);
 
         window.clear(sf::Color(0, 0, 0));
-        window.draw(player);
+        window.draw(player.GetPlayerObject());
         window.display();
     }
 
