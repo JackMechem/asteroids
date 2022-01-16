@@ -1,9 +1,6 @@
 #include "../include/player.hpp"
 #include <cmath>
-
-#include "../include/bullet.hpp"
-
-
+# include <vector>
 
 Player::Player()
 {
@@ -14,17 +11,46 @@ Player::Player()
     playerObject.setTexture(&playerTexture);
     playerObject.setOrigin(playerx / 2, playery / 2);
     playerObject.setPosition(sf::Vector2f(20.f, 20.f));
+
+    bulletImage.loadFromFile(bulletTextureDIR);
+
 }
 
 void Player::Update(float dt)
 {
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !isPressed)
+    {
+        isPressed = true;
+        bullets.push_back(new Bullet(playerObject.getPosition().x, playerObject.getPosition().y, 600, playerObject.getRotation(), bulletImage));
+    }
+    if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && isPressed){
+        isPressed = false;
+    }
+
     PlayerMovement(dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)){
-        Bullet bullet;
-        bullet.instantiate();
+
+    if (bullets.size() != 0)
+    {
+        for (Bullet *bullet : bullets)
+        {
+            bullet->Update(dt);
+        }
+    }
+
+    if(bullets.size() != 0)
+    {
+        for (int i=0; i<bullets.size(); i++)
+        {
+            if ((bullets[i]->GetX() > 4000 + 40) || (bullets[i]->GetX() < 0 - 40) ||
+                (bullets[i]->GetY() > 4000 + 40) || (bullets[i]->GetY() < 0 - 40))
+                {
+                    bullets.erase(bullets.begin() +i);
+                }
+        }
+        // std::cout<<bullets.size()<<std::endl;
     }
 }
-
 
 void Player::PlayerMovement(float dt)
 {
@@ -99,4 +125,17 @@ void Player::PlayerMovement(float dt)
 sf::RectangleShape Player::GetPlayerObject()
 {
     return playerObject;
+}
+
+void Player::Draw(sf::RenderWindow &Window)
+{
+    Window.draw(playerObject);
+
+    if (bullets.size() != 0)
+    {
+        for (Bullet *bullet : bullets)
+        {
+            bullet->Draw(Window);
+        }
+    }
 }

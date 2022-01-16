@@ -3,12 +3,40 @@
 
 class Bullet {
 public:
+
     Bullet();
-    std::vector<sf::CircleShape> getBullets();
 
-    void instantiate(); 
+    Bullet(float x,float y,float v,float r,sf::Image image);
+
+    void LoadResources(float x,float y,float v,float r , sf::Image image);
+
+    void UnloadResources();
+
+    void Update(float dt);
+
+    void SetX(float x);
+
+    void SetY(float y);
+
+    void SetRotation(float r);
+
+    float GetX();
+
+    float GetY();
+
+    void Draw(sf::RenderWindow &Window);
+
+    ~Bullet();
+
 private:
-    std::vector<sf::CircleShape> bullets;
 
-    float bulletRad = 10.0f;
+    float x;
+    float y;
+    float v;
+
+    float rotation;
+
+    sf::Texture bulletImg;
+    sf::Sprite bulletSpr;
+
 };

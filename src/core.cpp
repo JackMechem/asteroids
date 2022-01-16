@@ -14,7 +14,6 @@ void Core::run()
     sf::Time time;
 
 
-
     while (window.isOpen())
     {
         sf::Event evnt;
@@ -38,6 +37,10 @@ void Core::run()
 
         update();
 
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+        {
+        }
 
         window.clear(sf::Color(0, 0, 0));
         draw();

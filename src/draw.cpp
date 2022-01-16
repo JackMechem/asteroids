@@ -2,5 +2,5 @@
 
 void Core::draw()
 {
-    window.draw(player.GetPlayerObject());
+    player.Draw(window);
 }
