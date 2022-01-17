@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cmath>
 
 #include "player.hpp"
 
@@ -13,28 +14,19 @@ class Core {
 private:
     // Window
     Vector2f windowRes;
-    RenderWindow window;
-    const unsigned int FPS = 500;
-    static const Time TimePerFrame;
+    RenderWindow window; // Window instance
+    const unsigned int FPS = 60; // FPS cap to check if delta time is working
 
-    float dt;
+    float dt; // Delta Time
 
-    Player player;
+    Player player; // Create an instance of the player
 
 public:
     Core(); // Default construstor
 
-    bool inputLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
-    bool inputRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D);
-    bool inputUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
-    bool inputDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);
 
-    void input();
     void update();
     void draw();
 
-
-
     void run();
-    
 };
