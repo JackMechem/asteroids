@@ -8,7 +8,10 @@
 
 #include "player.hpp"
 
+#include "asteroid.hpp"
+
 using namespace sf;
+using namespace std;
 
 class Core {
 private:
@@ -21,10 +24,14 @@ private:
 
     Player player; // Create an instance of the player
 
+    std::vector<Asteroid*> asteroids;
+
+
 public:
     Core(); // Default construstor
 
 
+    void input();
     void update();
     void draw();
 

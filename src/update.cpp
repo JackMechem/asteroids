@@ -5,4 +5,11 @@
 void Core::update()
 {
     player.Update(dt);
+    if(asteroids.size() != 0)
+    {
+        for(Asteroid *asteroid : asteroids)
+        {
+            asteroid->Update(dt, window);
+        }
+    }
 }

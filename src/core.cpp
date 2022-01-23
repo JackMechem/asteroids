@@ -13,7 +13,6 @@ void Core::run()
     sf::Clock clock;
     sf::Time time;
 
-
     while (window.isOpen())
     {
         sf::Event evnt;

@@ -1,9 +1,11 @@
 #include "../include/player.hpp"
 #include <cmath>
-# include <vector>
+#include <vector>
+
 
 Player::Player()
 {
+
 
     playerObject = sf::RectangleShape(sf::Vector2f(playerx, playery));
 
